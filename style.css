@@ -1,0 +1,57 @@
+main {
+ display: flex;
+ gap: 100px;
+ padding: 50px;
+ }
+body{
+    background-color: blanchedalmond;
+}
+#heading{
+    text-align: center;
+    font-size: xx-large;
+}
+#movie-about img{
+    width: 500px;
+    height:300px;
+}
+
+h1{
+    color:black;
+}
+h2{
+    color: red;
+    font-size: large;
+}
+button{
+    color: brown;
+    background-color: black;
+    cursor: pointer;
+    padding: 05px;
+    gap: 100px;
+    font-style: italic;
+    font-size: large;
+    display: block;
+    width: 150px;
+    padding-left: 10px;
+    gap: 50px;
+    
+}
+#delete{
+    margin-top: 10px;
+}
+#movies{
+    border-style: double;
+    border-radius: 10px;
+    justify-content: center;
+    width: 300px;
+    height: 500px;
+    box-shadow: 4px 2px 5px 1px black;
+}
+h1{
+    text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
+}
+#tickets{
+margin-right: 10px;
+width: 300px;
+}
