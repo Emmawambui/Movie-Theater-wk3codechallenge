@@ -2,9 +2,11 @@ main {
  display: flex;
  gap: 100px;
  padding: 50px;
+ height: 300px;
  }
 body{
-    background-color: blanchedalmond;
+    background-color: snow;
+    
 }
 #heading{
     text-align: center;
@@ -12,7 +14,8 @@ body{
 }
 #movie-about img{
     width: 500px;
-    height:300px;
+    height:400px;
+    filter: brightness(70%);
 }
 
 h1{
@@ -34,17 +37,18 @@ button{
     width: 150px;
     padding-left: 10px;
     gap: 50px;
+    margin-top: 50px;
     
 }
 #delete{
-    margin-top: 10px;
+    margin-top: 20px;
 }
 #movies{
     border-style: double;
     border-radius: 10px;
     justify-content: center;
     width: 300px;
-    height: 500px;
+    height: fit-content;
     box-shadow: 4px 2px 5px 1px black;
 }
 h1{
@@ -54,4 +58,34 @@ h1{
 #tickets{
 margin-right: 10px;
 width: 300px;
+/* background-color: linen; */
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+height: 500px;
+}
+#films li{
+    margin-bottom: 10px;
+}
+#span{
+    color: black;
+}
+header{
+    color:black;
+    background-color:red;
+    justify-content: center;
+    padding: 20px;
+    font-size: 50px;
+    filter: brightness(60%);
+    
+}
+#runtime{
+    font-size: 25px;
+}
+#showtime{
+    font-size: 25px;
+}
+#available-tickets{
+    font-size: 25px;
 }
