@@ -1,4 +1,6 @@
 const moviesListNode = document.querySelector("#films")
+
+let loadedMovieId = 1;
  
 
 function fetchAllMovies(){
@@ -10,6 +12,7 @@ function fetchAllMovies(){
     .then(resp => resp.json())
     .then(movies => movies)
 }
+
 async function renderMoviesList(){
     const movies = await fetchAllMovies()
     movies.forEach(movie => {
@@ -20,6 +23,10 @@ async function renderMoviesList(){
          
         moviesListNode.appendChild(li)
     });
+
+
+    renderMovieListDetail(movies[0])
+    renderTicketAvailable(movies[0])
 }
 
 async function handleDisplayMovie(e){
@@ -36,11 +43,15 @@ function fetchMovieById(id){
         }
 })
 .then(resp => resp.json())
-.then(movie => movie)
+.then(movie => {
+    renderTicketAvailable(movie)
+    renderMovieListDetail(movie)
+})
 
 }
 
 function renderMovieListDetail(movie){
+    loadedMovieId = movie.id
         const movieInfo= document.querySelector("#movie-about")
         const h1 = movieInfo.querySelector("#title")
         const img= movieInfo.querySelector("#image")
@@ -54,38 +65,64 @@ function renderMovieListDetail(movie){
 
 function renderTicketAvailable(movie){
     const movieMoreDetails= document.querySelector("#tickets")
-    const h1 = movieMoreDetails.querySelector("#my-title")
-    const runtime = movieMoreDetails.querySelector("#runtime span")
-    const showtime = movieMoreDetails.querySelector("#showtime span")
-    const availabletickets = movieMoreDetails.querySelector("#available-tickets span")
-    const button= movieMoreDetails.querySelector("#my-tickets")
-    button.addEventListener("click", handleAvailableTickets)
-    const deleteButton = movieMoreDetails.querySelector("#delete")
+    const h1 = document.querySelector("#my-title")
+    const runtime = document.querySelector("#runtime span")
+    const showtime = document.querySelector("#showtime span")
 
     h1.textContent = movie.title
     runtime.textContent= movie.runtime
     showtime.textContent = movie.showtime
-    availabletickets.textContent = (movie.capacity-movie.tickets_sold)
 
-    const isSoldOut = movieIsSoldOut(movie)
-    if(isSoldOut) {
-        button.textContent = "Sold Out"
-        button.disabled = true
-    } else {
-        button.textContent = "Buy Ticket"
-    }
+    let capacity = movie.capacity
+    let tickets_sold = movie.tickets_sold
+    let remaining = capacity - tickets_sold
+    
+    const availabletickets = document.querySelector("#available-tickets span")
+    availabletickets.innerText = remaining;
+    const button= movieMoreDetails.querySelector("#my-tickets")
+    button.addEventListener("click", () => {
+        if (remaining > 0 ){
+            remaining--
+            availabletickets.innerText = remaining
+        }
+        else{
+            button.disabled = true
+            button.innerHTML = 'SoldOut'
+            button.style.backgroundColor='grey'
+        }
+    })
+    const deleteButton = movieMoreDetails.querySelector("#delete")
+
+   
+    
+
+    
+}
+   
+   
+    // const isSoldOut = movieIsSoldOut(movie)
+    // if(isSoldOut) {
+    //     button.textContent = "Sold Out"
+    //     button.disabled = true
+    // } else {
+    //     button.textContent = "Buy Ticket"
+    // }
    
     // deleteButton.textContent = 
 
-}
-
-function movieIsSoldOut(movie){
-    return movie.capacity===movie.tickets_sold;
-
-}
 
 
+// function handleAvailableTickets(movie) {
+//    availabletic
+// }
+
+// function movieIsSoldOut(movie){
+//     return movie.capacity===movie.tickets_sold;
+
+// }
 
 
+// console.log(loadedMovieId)
 
-window.onload= renderMoviesList
+
+ window.onload= renderMoviesList
