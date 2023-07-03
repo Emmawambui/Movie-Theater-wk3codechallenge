@@ -23,10 +23,6 @@ async function renderMoviesList(){
          
         moviesListNode.appendChild(li)
     });
-
-
-    renderMovieListDetail(movies[0])
-    renderTicketAvailable(movies[0])
 }
 
 async function handleDisplayMovie(e){
@@ -44,8 +40,7 @@ function fetchMovieById(id){
 })
 .then(resp => resp.json())
 .then(movie => {
-    renderTicketAvailable(movie)
-    renderMovieListDetail(movie)
+    return movie
 })
 
 }
@@ -80,10 +75,21 @@ function renderTicketAvailable(movie){
     const availabletickets = document.querySelector("#available-tickets span")
     availabletickets.innerText = remaining;
     const button= movieMoreDetails.querySelector("#my-tickets")
+    if(remaining>0){
+        button.innerHTML = 'Tickets'
+    }
+
     button.addEventListener("click", () => {
         if (remaining > 0 ){
             remaining--
+            console.log(remaining);
             availabletickets.innerText = remaining
+
+            if(remaining === 0){
+                button.disabled = true
+                button.innerHTML = 'SoldOut'
+                button.style.backgroundColor='grey'
+            }
         }
         else{
             button.disabled = true
